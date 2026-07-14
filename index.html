@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Patient Registry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #059669;
+            --primary-hover: #047857;
+            --primary-gradient: linear-gradient(135deg, #059669 0%, #064e3b 100%);
+            --bg-gradient: radial-gradient(circle at 0% 0%, #f0fdf4 0%, #dcfce7 50%, #f0fdfa 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-main: #064e3b;
+            --text-muted: #14532d;
+            --border: #059669;
+            --radius-lg: 24px;
+            --radius-md: 12px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: #a7f3d0;
+            filter: blur(130px);
+            top: 5%;
+            left: 10%;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        body::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #fef08a;
+            filter: blur(120px);
+            bottom: 5%;
+            right: 10%;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        .main-wrapper {
+            display: flex;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 25px 50px -12px rgba(6, 78, 59, 0.08);
+            width: 100%;
+            max-width: 850px;
+            overflow: hidden;
+        }
+
+        .image-section {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(5, 150, 105, 0.1) 0%, rgba(6, 78, 59, 0.2) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            border-right: 1px solid var(--border);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .form-section {
+            flex: 1;
+            padding: 3rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand-icon {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 0.25rem;
+            display: block;
+            filter: drop-shadow(0 4px 6px rgba(5, 150, 105, 0.2));
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0 0 2rem 0;
+            color: #064e3b;
+            text-align: center;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #064e3b;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper span {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            color: #059669;
+            pointer-events: none;
+        }
+
+        input {
+            width: 100%;
+            padding: 1.05rem 1.25rem 1.05rem 2.6rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-family: inherit;
+            font-weight: 600;
+            color: #042f1a;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-sizing: border-box;
+            background-color: #ffffff;
+        }
+
+        input::placeholder {
+            color: #042f1a !important;
+            opacity: 0.75;
+        }
+
+        input:hover {
+            border-color: #047857;
+            background-color: #ffffff;
+        }
+
+        input:focus {
+            outline: none;
+            background-color: #ffffff;
+            border-color: #064e3b;
+            box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.25);
+            transform: translateY(-1px);
+        }
+
+        input[type="date"] {
+            cursor: pointer;
+            color: #042f1a;
+        }
+
+        button {
+            width: 100%;
+            padding: 1.1rem;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-family: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            margin-top: 1rem;
+            box-shadow: 0 10px 25px -6px rgba(6, 78, 59, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px -6px rgba(6, 78, 59, 0.4);
+            filter: brightness(1.08);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .view-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-top: 1.75rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            gap: 6px;
+        }
+
+        .view-link:hover {
+            color: var(--primary-hover);
+            gap: 10px;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .main-wrapper {
+                flex-direction: column;
+            }
+            .image-section {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <div class="image-section">
+            <div style="font-size: 6.5rem; filter: drop-shadow(0 15px 20px rgba(5, 150, 105, 0.25)); animation: float 4s ease-in-out infinite; margin-bottom: 10px; user-select: none;">🧑‍⚕️🛌👩‍⚕️</div>
+            <h3 style="margin: 1rem 0 0 0; font-weight: 800; font-size: 1.3rem; color: #064e3b; letter-spacing: -0.02em;">Smart Care Registry</h3>
+            <p style="margin: 6px 0 0 0; font-size: 0.9rem; color: #14532d; opacity: 0.8; font-weight: 500;">Empowering healthcare with clean data.</p>
+        </div>
+
+        <div class="form-section">
+            <span class="brand-icon">🩺</span>
+            <h1>Hospital Patient Registry</h1>
+            
+            <form action="/register" method="POST" autocomplete="off">
+                <div class="form-group">
+                    <label for="studentName">👤 Patient Name</label>
+                    <div class="input-wrapper">
+                        <span>🪪</span>
+                        <input type="text" id="studentName" name="studentName" placeholder="Enter full name" maxlength="60" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dateOfAdmission">📅 Date of Admission</label>
+                    <div class="input-wrapper">
+                        <span>📆</span>
+                        <input type="date" id="dateOfAdmission" name="dateOfAdmission" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="rollno">🦠 Illness / Diagnosis</label>
+                    <div class="input-wrapper">
+                        <span>💊</span>
+                        <input type="text" id="rollno" name="rollno" placeholder="e.g. Chronic Fever, Dengue" maxlength="100" required>
+                    </div>
+                </div>
+                
+                <button type="submit">➕ Register Patient</button>
+            </form>
+            
+            <a href="/students" class="view-link">📋 View Patients Directory <span>→</span></a>
+        </div>
+    </div>
+
+</body>
+</html>
